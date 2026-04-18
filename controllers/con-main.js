@@ -17,7 +17,12 @@ const getRandomFoxes = async (req, res) => {
 }
 const applyVote = async (req, res) => {
     const vote = req.body.vote
-    const fox = await Fox.findById(vote) 
+    const updatedFox = await Fox.findByIdAndUpdate(
+            vote,
+            { $inc: { votes: 1 } },
+            { new: true }
+        )
+    res.json({ success: true })
 }
 
 module.exports = {
